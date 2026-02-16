@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Very Serious Website</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Comic Sans MS, cursive, sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+    color: white;
+    background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet);
+    background-size: 1400% 1400%;
+    animation: rainbowBG 8s ease infinite;
+}
+
+@keyframes rainbowBG {
+    0% {background-position:0% 50%}
+    50% {background-position:100% 50%}
+    100% {background-position:0% 50%}
+}
+
+h1 {
+    font-size: 7vw;
+    margin-top: 40px;
+    text-shadow: 2px 2px black;
+}
+
+#joke {
+    font-size: 5vw;
+    padding: 20px;
+}
+
+button {
+    padding: 15px 25px;
+    font-size: 5vw;
+    border: none;
+    border-radius: 15px;
+    background: yellow;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:active {
+    transform: scale(0.9);
+}
+
+#troll {
+    display: none;
+    font-size: 8vw;
+    margin-top: 30px;
+    animation: spin 2s linear infinite, shake 0.2s infinite alternate;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+    from { margin-left: -10px; }
+    to { margin-left: 10px; }
+}
+
+.chaos {
+    position: absolute;
+    font-size: 6vw;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-20vh); }
+}
+
+/* Screen shake effect */
+.shakeScreen {
+    animation: screenShake 0.1s infinite;
+}
+
+@keyframes screenShake {
+    0% { transform: translate(2px, 2px); }
+    25% { transform: translate(-2px, -2px); }
+    50% { transform: translate(-2px, 2px); }
+    75% { transform: translate(2px, -2px); }
+    100% { transform: translate(2px, 2px); }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Welcome to the Most Serious Website Ever</h1>
+
+<div id="joke">Tap the button for a VERY serious dad joke.</div>
+
+<button onclick="newJoke()">Tell Me a Joke</button>
+
+<div id="troll">😂 YOU GOT TROLLED BY KHIYAAN SINGHVI 😂</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="https://www.soundjay.com/free-music/sounds/beep-07a.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Troll Sound -->
+<audio id="trollSound">
+    <source src="https://www.soundjay.com/human/sounds/applause-8.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const jokes = [
+    "Why don't skeletons fight each other? They don't have the guts.",
+    "I only know 25 letters of the alphabet. I don't know Y.",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "Why can't your nose be 12 inches long? Because then it would be a foot.",
+    "I'm reading a book about anti-gravity. It's impossible to put down."
+];
+
+let jokeCount = 0;
+let musicStarted = false;
+
+function newJoke() {
+
+    if (!musicStarted) {
+        document.getElementById("bgMusic").play();
+        musicStarted = true;
+    }
+
+    if (jokeCount < jokes.length) {
+        document.getElementById("joke").innerText = jokes[jokeCount];
+        jokeCount++;
+    } else {
+        unleashChaos();
+    }
+}
+
+function unleashChaos() {
+    document.getElementById("joke").style.display = "none";
+    document.querySelector("button").style.display = "none";
+    document.getElementById("troll").style.display = "block";
+
+    document.body.classList.add("shakeScreen");
+    document.getElementById("trollSound").play();
+
+    // Create floating chaotic emojis
+    for (let i = 0; i < 20; i++) {
+        let chaos = document.createElement("div");
+        chaos.className = "chaos";
+        chaos.innerText = "🤣🔥💀🎉";
+        chaos.style.left = Math.random() * 100 + "vw";
+        chaos.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(chaos);
+    }
+}
+</script>
+
+</body>
+</html>
